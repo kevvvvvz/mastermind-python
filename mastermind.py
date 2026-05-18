@@ -19,23 +19,25 @@ def compTurn():
             print("Please ensure guess contains 4 digits")
             continue
         
+        digits = 0
         for i, char in enumerate(number):
             if guess[i] == char:
                 print(char, end=" ")
+                digits += 1
             else:
                 print("X", end=" ")
             
         if guess == number and attempts == 0:
             print()
-            return "Guessed Immediately: You WIN!"
+            return "Guessed Immediately! You are truly a Mastermind!", attempts
             
         if guess == number:
             print()
-            return "Number correctly guessed, You Win!"
+            return "You've become a Mastermind! The number was correctly guessed!", attempts
         
         if guess != number:
             print()
-            print("Incorrect, continue guessing!")
+            print(f"Not quite! You got {digits} digit(s) correct!")
             attempts += 1
             print()
             print("Attempt Counter:", attempts)
@@ -45,8 +47,10 @@ def main():
     
     while True:
         print("Player 2 is Computer.")
-        result = compTurn()
+        result, attempts = compTurn()
         print(result)
+        if attempts > 0:
+            print(f"It only took you {attempts + 1} tries.")
         check = input("Would you like to play again? Enter (Yes/No): ").upper()
         if check == "NO":
             sys.exit()
